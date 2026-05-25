@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campanha do Leão 2026 — Vitória na Série A</title>
+<meta name="description" content="Acompanhe a campanha do Vitória na Série A 2026: marque os resultados e veja onde o Leão termina a temporada.">
+<meta name="theme-color" content="#0B0B0C">
+<meta property="og:title" content="Campanha do Leão 2026 — Vitória na Série A">
+<meta property="og:description" content="Onde o Leão da Barra termina o Brasileirão? Marque os resultados e veja a projeção.">
+<meta property="og:type" content="website">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Leão 2026">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --rubro:#E2231A;--rubro-dark:#9E120C;--negro:#0B0B0C;--negro-soft:#151517;
+    --negro-card:#1B1B1E;--line:rgba(255,255,255,0.10);--line-strong:rgba(255,255,255,0.22);
+    --txt:#F4F4F2;--txt-mut:#A2A2A0;--txt-dim:#6E6E6C;--gold:#E8B53B;
+    --verde:#5fd089;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--negro);color:var(--txt);font-family:'Barlow',sans-serif;
+    line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+  .wrap{max-width:780px;margin:0 auto;padding:0 22px;}
+  .stripes{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.045;
+    background:repeating-linear-gradient(90deg,var(--rubro) 0 40px,transparent 40px 80px);}
+
+  header.hero{position:relative;z-index:1;padding:64px 0 40px;border-bottom:1px solid var(--line);}
+  .kicker{font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--rubro);font-size:14px;margin-bottom:14px;}
+  h1{font-family:'Anton',sans-serif;font-weight:400;line-height:0.92;letter-spacing:-.01em;
+    font-size:clamp(46px,11vw,92px);text-transform:uppercase;}
+  h1 .red{color:var(--rubro);}
+  .sub{color:var(--txt-mut);font-size:clamp(16px,2.4vw,19px);max-width:540px;margin-top:18px;}
+  .updated{margin-top:22px;font-family:'Barlow Condensed',sans-serif;font-weight:600;
+    letter-spacing:.08em;text-transform:uppercase;font-size:13px;color:var(--txt-dim);}
+
+  .standing{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:1px;
+    background:var(--line);border-radius:14px;overflow:hidden;margin:34px 0 8px;border:1px solid var(--line);}
+  .standing .cell{flex:1 1 0;min-width:88px;background:var(--negro-card);padding:18px 14px;}
+  .standing .cell .lbl{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--txt-dim);}
+  .standing .cell .val{font-family:'Anton',sans-serif;font-size:30px;margin-top:4px;line-height:1;}
+  .standing .cell .val.red{color:var(--rubro);}
+
+  section{position:relative;z-index:1;padding:44px 0;border-bottom:1px solid var(--line);}
+  h2{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;
+    letter-spacing:.04em;font-size:clamp(26px,5vw,36px);line-height:1;margin-bottom:8px;}
+  h2 .num{color:var(--rubro);margin-right:10px;}
+  .lead{color:var(--txt-mut);font-size:16px;margin-bottom:26px;max-width:600px;}
+
+  .presets{display:flex;gap:10px;margin-bottom:24px;}
+  .presets button{flex:1;font-family:'Barlow Condensed',sans-serif;font-weight:700;
+    text-transform:uppercase;letter-spacing:.06em;font-size:15px;padding:13px 8px;cursor:pointer;
+    background:var(--negro-card);color:var(--txt);border:1px solid var(--line-strong);
+    border-radius:10px;transition:all .15s;}
+  .presets button:hover{border-color:var(--rubro);color:#fff;}
+  .presets button.on{background:var(--rubro);border-color:var(--rubro);color:#fff;}
+
+  .slider-row{display:flex;align-items:center;gap:16px;margin-bottom:14px;}
+  .slider-row label{font-size:14px;color:var(--txt-mut);min-width:120px;}
+  input[type=range]{-webkit-appearance:none;appearance:none;flex:1;height:6px;border-radius:6px;
+    background:linear-gradient(90deg,var(--rubro) 0%,var(--rubro) var(--p,50%),#2a2a2d var(--p,50%),#2a2a2d 100%);outline:none;}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;
+    background:#fff;border:3px solid var(--rubro);cursor:pointer;}
+  input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:#fff;
+    border:3px solid var(--rubro);cursor:pointer;}
+  .ppgval{font-family:'Anton',sans-serif;font-size:22px;min-width:118px;text-align:right;}
+  .breakdown{font-size:13px;color:var(--txt-dim);margin-bottom:24px;}
+
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:26px;}
+  .stat{background:var(--negro-card);border:1px solid var(--line);border-radius:12px;padding:18px 16px;}
+  .stat .lbl{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--txt-dim);}
+  .stat .big{font-family:'Anton',sans-serif;font-size:clamp(34px,8vw,48px);line-height:0.95;margin-top:6px;}
+  .stat.hl{border-color:var(--rubro);background:linear-gradient(180deg,rgba(226,35,26,0.14),var(--negro-card));}
+  .stat.hl .big{color:var(--rubro);}
+
+  .verdict{border-radius:14px;padding:20px 22px;margin-bottom:24px;border:1px solid var(--line-strong);
+    transition:background .2s,border-color .2s;}
+  .verdict .vt{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;
+    letter-spacing:.05em;font-size:22px;margin-bottom:4px;}
+  .verdict .vd{color:var(--txt-mut);font-size:15px;}
+
+  .bar{display:flex;height:46px;border-radius:10px;overflow:hidden;position:relative;
+    font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.04em;font-size:13px;text-transform:uppercase;}
+  .bar .seg{display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.92);}
+  .bar .marker{position:absolute;top:-6px;bottom:-6px;width:4px;background:#fff;left:50%;
+    box-shadow:0 0 0 2px var(--negro);transition:left .25s cubic-bezier(.2,.8,.2,1);}
+  .scale{display:flex;justify-content:space-between;font-size:11px;color:var(--txt-dim);margin-top:6px;
+    font-family:'Barlow Condensed',sans-serif;letter-spacing:.05em;}
+  .note{font-size:13px;color:var(--txt-dim);margin-top:22px;}
+
+  .trackhead{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:18px;}
+  .trackhead .count{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;
+    letter-spacing:.05em;font-size:15px;color:var(--txt-mut);}
+  .trackhead .count b{color:var(--rubro);}
+  .reset{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;
+    letter-spacing:.05em;font-size:13px;padding:9px 16px;border-radius:9px;cursor:pointer;
+    background:transparent;color:var(--txt-mut);border:1px solid var(--line-strong);transition:all .15s;}
+  .reset:hover{border-color:var(--rubro);color:#fff;}
+
+  .fixtures{display:grid;gap:8px;}
+  .fx{display:grid;grid-template-columns:38px 1fr auto;align-items:center;gap:14px;
+    background:var(--negro-card);border:1px solid var(--line);border-radius:11px;padding:13px 16px;
+    transition:border-color .15s;}
+  .fx.done{border-color:var(--line-strong);}
+  .fx .rd{font-family:'Anton',sans-serif;font-size:18px;color:var(--txt-dim);text-align:center;}
+  .fx .opp{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:19px;text-transform:uppercase;letter-spacing:.02em;}
+  .fx .meta{font-size:12px;color:var(--txt-dim);text-transform:uppercase;letter-spacing:.04em;}
+  .fx .meta .tg{padding:2px 7px;border-radius:5px;margin-left:2px;}
+  .tg.dir{background:rgba(232,181,59,0.16);color:var(--gold);}
+  .tg.facil{background:rgba(45,160,90,0.16);color:var(--verde);}
+  .tg.dificil{background:rgba(226,35,26,0.16);color:#ff7a73;}
+  .tg.equil{background:rgba(255,255,255,0.08);color:var(--txt-mut);}
+  .ved{display:flex;gap:6px;}
+  .ved button{width:38px;height:38px;border-radius:9px;cursor:pointer;font-family:'Anton',sans-serif;
+    font-size:16px;background:var(--negro-soft);color:var(--txt-mut);border:1px solid var(--line-strong);
+    transition:all .12s;line-height:1;}
+  .ved button:hover{color:#fff;}
+  .ved button.sel-V{background:var(--verde);border-color:var(--verde);color:#06371d;}
+  .ved button.sel-E{background:#3a3a3d;border-color:#55555a;color:#fff;}
+  .ved button.sel-D{background:var(--rubro);border-color:var(--rubro);color:#fff;}
+
+  .keys{display:grid;gap:14px;}
+  .key{display:flex;gap:16px;align-items:flex-start;background:var(--negro-card);
+    border:1px solid var(--line);border-left:3px solid var(--rubro);border-radius:0 12px 12px 0;padding:18px 20px;}
+  .key .n{font-family:'Anton',sans-serif;font-size:30px;color:var(--rubro);line-height:1;min-width:34px;}
+  .key h3{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;
+    font-size:18px;letter-spacing:.03em;margin-bottom:3px;}
+  .key p{color:var(--txt-mut);font-size:15px;}
+
+  footer{position:relative;z-index:1;padding:40px 0 70px;text-align:center;}
+  footer .chant{font-family:'Anton',sans-serif;font-size:clamp(28px,7vw,52px);text-transform:uppercase;
+    color:var(--rubro);line-height:0.95;}
+  footer .small{color:var(--txt-dim);font-size:12.5px;margin-top:20px;line-height:1.7;max-width:520px;
+    margin-left:auto;margin-right:auto;}
+  .share{display:inline-flex;gap:10px;margin-top:24px;flex-wrap:wrap;justify-content:center;}
+  .share button{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;
+    letter-spacing:.06em;font-size:14px;padding:12px 22px;border-radius:10px;cursor:pointer;
+    background:var(--rubro);color:#fff;border:none;transition:transform .12s,background .15s;}
+  .share button:hover{background:var(--rubro-dark);transform:translateY(-1px);}
+  .share button.ghost{background:transparent;border:1px solid var(--line-strong);color:var(--txt);}
+  .share button.ghost:hover{border-color:var(--rubro);background:transparent;}
+
+  @media(max-width:540px){
+    .standing .cell{flex:1 1 40%;}
+    .stats{grid-template-columns:1fr;}
+    .slider-row{flex-wrap:wrap;}
+    .slider-row label{min-width:100%;}
+    .fx{grid-template-columns:30px 1fr;grid-row-gap:12px;}
+    .ved{grid-column:1 / -1;justify-content:flex-end;}
+  }
+</style>
+</head>
+<body>
+<div class="stripes"></div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">Brasileirão Série A 2026 · Rubro-Negro</div>
+    <h1>O <span class="red">Leão</span> vai<br>até onde?</h1>
+    <p class="sub">Simulador da campanha do Vitória no returno. Marque os resultados e descubra onde o Leão termina a temporada.</p>
+    <div class="updated" id="updated">Atualizado após a 17ª rodada · Vitória 2 × 0 Internacional</div>
+
+    <div class="standing">
+      <div class="cell"><div class="lbl">Posição</div><div class="val red">11º</div></div>
+      <div class="cell"><div class="lbl">Pontos</div><div class="val">22</div></div>
+      <div class="cell"><div class="lbl">Jogos</div><div class="val">16</div></div>
+      <div class="cell"><div class="lbl">Aproveit.</div><div class="val">46%</div></div>
+      <div class="cell"><div class="lbl">Folga p/ Z-4</div><div class="val">+4</div></div>
+    </div>
+    <p class="note" style="margin-top:14px;">Posição oficial após a 17ª rodada. Campanha: 6 vitórias, 4 empates, 6 derrotas.</p>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2><span class="num">01</span>Simulador da reta final</h2>
+    <p class="lead">Escolha um cenário ou arraste para definir o aproveitamento do Leão nos jogos que ainda faltam. Quanto mais resultados você marcar na seção 02, mais real fica a projeção.</p>
+
+    <div class="presets">
+      <button id="b-pess">Pessimista</button>
+      <button id="b-real" class="on">Realista</button>
+      <button id="b-otim">Otimista</button>
+    </div>
+
+    <div class="slider-row">
+      <label>Aproveit. dos jogos não marcados</label>
+      <input type="range" id="ppg" min="0.5" max="2.3" step="0.05" value="1.3">
+      <div class="ppgval" id="ppg-out">1,30 / jogo</div>
+    </div>
+    <p class="breakdown" id="breakdown"></p>
+
+    <div class="stats">
+      <div class="stat"><div class="lbl">Pontos hoje</div><div class="big" id="s-now">22</div></div>
+      <div class="stat hl"><div class="lbl">Total projetado</div><div class="big" id="s-total">51</div></div>
+      <div class="stat"><div class="lbl">Posição estimada</div><div class="big" id="s-pos">9º</div></div>
+    </div>
+
+    <div class="verdict" id="verdict">
+      <div class="vt" id="v-title">Permanência tranquila</div>
+      <div class="vd" id="v-desc">Acima da linha de segurança, brigando no meio de tabela.</div>
+    </div>
+
+    <div class="bar">
+      <div class="seg" style="flex:42;background:#7a1410;">Z-4</div>
+      <div class="seg" style="flex:8;background:#9e6b12;">Risco</div>
+      <div class="seg" style="flex:10;background:#2a2a2d;">Seguro</div>
+      <div class="seg" style="flex:8;background:#155a8a;">Sula</div>
+      <div class="seg" style="flex:12;background:#1d7a44;">Liberta</div>
+      <div class="marker" id="marker"></div>
+    </div>
+    <div class="scale"><span>30</span><span>42</span><span>46</span><span>52</span><span>58</span><span>70</span></div>
+
+    <p class="note">Base: 22 pts em 16 jogos. Linhas de corte baseadas no histórico da Série A de 20 clubes (rebaixamento ~42-45, Sul-Americana ~G8, Libertadores ~G6/G7). É uma projeção, não uma profecia — futebol é jogo de bola.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="num">02</span>Marque os resultados</h2>
+    <p class="lead">Toque em V (vitória), E (empate) ou D (derrota) conforme o Leão joga. Fica salvo no seu aparelho — toque de novo para desmarcar.</p>
+    <div class="trackhead">
+      <div class="count" id="count">Nenhum jogo marcado</div>
+      <button class="reset" id="reset">Resetar</button>
+    </div>
+    <div class="fixtures" id="fixtures"></div>
+    <p class="note">Mando alternado · datas sujeitas a ajuste da CBF. A parada para a Copa do Mundo separa a 18ª da 19ª rodada.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="num">03</span>A real, em três pontos</h2>
+    <div class="keys">
+      <div class="key"><div class="n">1</div><div><h3>Rebaixamento? Esquece</h3><p>Mesmo despencando para menos de 1 ponto por jogo, o Leão termina perto dos 43. A degola só vira ameaça com um returno catastrófico.</p></div></div>
+      <div class="key"><div class="n">2</div><div><h3>O alvo é o G-8</h3><p>Mantendo o ritmo atual, o Vitória fecha perto de 51 pontos, brigando por vaga na Sul-Americana — campanha mais estável que 2024 e 2025.</p></div></div>
+      <div class="key"><div class="n">3</div><div><h3>Tudo nos confrontos diretos</h3><p>Santos, Vasco, Remo e Botafogo valem mais que Palmeiras e Flamengo. Vencer quem está embaixo blinda a temporada inteira.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="chant">Eu sou suspeito<br>a falar do Leão</div>
+    <div class="share">
+      <button id="sh-wpp">Mandar no WhatsApp</button>
+      <button class="ghost" id="sh-copy">Copiar link</button>
+    </div>
+    <p class="small">Feito por torcedor, para torcedores. Projeção estatística sem qualquer vínculo oficial com o Esporte Clube Vitória. Base: 17ª rodada do Brasileirão 2026.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var BASE_PTS=22, BASE_GAMES=16, TOTAL=38;
+  var KEY='leao-2026-resultados';
+  var ppg=document.getElementById('ppg');
+  var presets={'b-pess':0.95,'b-real':1.3,'b-otim':1.65};
+
+  var fx=[
+    {rd:18,opp:'Santos',loc:'Fora · 30/05',tag:'Confronto direto',cls:'dir'},
+    {rd:19,opp:'Vasco',loc:'Casa · 22/07',tag:'Ganhável',cls:'facil'},
+    {rd:20,opp:'Remo',loc:'Fora · 26/07',tag:'Ganhável',cls:'facil'},
+    {rd:21,opp:'Palmeiras',loc:'Casa · 29/07',tag:'Pedreira',cls:'dificil'},
+    {rd:22,opp:'Flamengo',loc:'Fora · 09/08',tag:'Pedreira',cls:'dificil'},
+    {rd:23,opp:'Botafogo',loc:'Casa · 16/08',tag:'Equilibrado',cls:'equil'},
+    {rd:24,opp:'Bahia',loc:'Casa · 23/08',tag:'Clássico Ba-Vi',cls:'equil'},
+    {rd:25,opp:'Atlético-MG',loc:'Fora · 30/08',tag:'Equilibrado',cls:'equil'}
+  ];
+
+  var results={};
+  try{ results=JSON.parse(localStorage.getItem(KEY)||'{}'); }catch(e){ results={}; }
+  function save(){ try{ localStorage.setItem(KEY,JSON.stringify(results)); }catch(e){} }
+
+  var PTS={V:3,E:1,D:0};
+
+  function pos(p){
+    if(p>=60)return'5º';if(p>=56)return'6º';if(p>=52)return'8º';if(p>=48)return'10º';
+    if(p>=45)return'12º';if(p>=42)return'15º';if(p>=38)return'17º';return'19º';
+  }
+  function verdict(p){
+    if(p>=58)return['Zona de Libertadores','Campanha de elite — disputa direta pelo G-6/G-7.','#1d7a44','#5fd089'];
+    if(p>=52)return['Briga por Sul-Americana','Meio de tabela alto, flertando com vaga internacional.','#155a8a','#7ab8e8'];
+    if(p>=46)return['Permanência tranquila','Acima da linha de segurança, sem sustos.','#2a2a2d','#cfcfcf'];
+    if(p>=42)return['Permanência com sufoco','Em cima da linha — depende dos confrontos diretos.','#7a5410','#e8b53b'];
+    return['Risco de rebaixamento','Abaixo da média de salvação — cenário de alerta.','#7a1410','#ff7a73'];
+  }
+
+  function lastMarked(){
+    var best=null;
+    fx.forEach(function(g){ if(results[g.rd] && (!best||g.rd>best.rd)) best=g; });
+    return best;
+  }
+  function updateHeader(){
+    var g=lastMarked();
+    var el=document.getElementById('updated');
+    if(!g){ el.textContent='Atualizado após a 17ª rodada · Vitória 2 × 0 Internacional'; return; }
+    var r=results[g.rd];
+    var verbo=r==='V'?'venceu o':(r==='E'?'empatou com o':'perdeu para o');
+    el.textContent='Atualizado após a '+g.rd+'ª rodada · Vitória '+verbo+' '+g.opp;
+  }
+
+  function render(){
+    var entries=Object.keys(results);
+    var enteredGames=entries.length;
+    var enteredPts=entries.reduce(function(s,k){return s+PTS[results[k]];},0);
+    var gamesPlayed=BASE_GAMES+enteredGames;
+    var nowPts=BASE_PTS+enteredPts;
+    var rem=TOTAL-gamesPlayed;
+
+    var r=parseFloat(ppg.value);
+    var projPts=Math.round(r*rem);
+    var tot=nowPts+projPts;
+
+    ppg.style.setProperty('--p',((r-0.5)/(2.3-0.5)*100)+'%');
+    document.getElementById('ppg-out').textContent=r.toFixed(2).replace('.',',')+' / jogo';
+    document.getElementById('s-now').textContent=nowPts;
+    document.getElementById('s-total').textContent=tot;
+    document.getElementById('s-pos').textContent=pos(tot);
+    document.getElementById('breakdown').textContent=
+      nowPts+' pts em '+gamesPlayed+' jogos · projetando '+rem+' jogos a '+r.toFixed(2).replace('.',',')+'/jogo = +'+projPts+' pts.';
+
+    var v=verdict(tot);
+    document.getElementById('v-title').textContent=v[0];
+    document.getElementById('v-desc').textContent=v[1];
+    var vEl=document.getElementById('verdict');
+    vEl.style.background='linear-gradient(180deg,'+v[2]+'33,var(--negro-card))';
+    vEl.style.borderColor=v[2];
+    document.getElementById('v-title').style.color=v[3];
+    var lo=30,hi=70;
+    document.getElementById('marker').style.left=Math.max(0,Math.min(100,(tot-lo)/(hi-lo)*100))+'%';
+
+    var c=document.getElementById('count');
+    c.innerHTML=enteredGames===0?'Nenhum jogo marcado':'<b>'+enteredGames+'</b> de '+fx.length+' jogos marcados';
+    updateHeader();
+  }
+
+  function buildFixtures(){
+    document.getElementById('fixtures').innerHTML=fx.map(function(g){
+      return '<div class="fx" data-rd="'+g.rd+'"><div class="rd">'+g.rd+'</div>'+
+        '<div><div class="opp">'+g.opp+'</div>'+
+        '<div class="meta">'+g.loc+' <span class="tg '+g.cls+'">'+g.tag+'</span></div></div>'+
+        '<div class="ved">'+
+          '<button data-r="V">V</button>'+
+          '<button data-r="E">E</button>'+
+          '<button data-r="D">D</button>'+
+        '</div></div>';
+    }).join('');
+    document.querySelectorAll('.fx').forEach(function(row){
+      var rd=row.getAttribute('data-rd');
+      function paint(){
+        var cur=results[rd];
+        row.classList.toggle('done',!!cur);
+        row.querySelectorAll('.ved button').forEach(function(b){
+          var v=b.getAttribute('data-r');
+          b.className='';
+          if(cur===v) b.classList.add('sel-'+v);
+        });
+      }
+      row.querySelectorAll('.ved button').forEach(function(b){
+        b.onclick=function(){
+          var v=b.getAttribute('data-r');
+          if(results[rd]===v) delete results[rd]; else results[rd]=v;
+          save(); paint(); render();
+        };
+      });
+      paint();
+    });
+  }
+
+  Object.keys(presets).forEach(function(id){
+    document.getElementById(id).onclick=function(){
+      ppg.value=presets[id];
+      document.querySelectorAll('.presets button').forEach(function(b){b.classList.remove('on');});
+      this.classList.add('on');
+      render();
+    };
+  });
+  ppg.oninput=function(){
+    document.querySelectorAll('.presets button').forEach(function(b){b.classList.remove('on');});
+    render();
+  };
+  document.getElementById('reset').onclick=function(){
+    results={}; save(); buildFixtures(); render();
+  };
+
+  document.getElementById('sh-wpp').onclick=function(){
+    var t='Até onde vai o Leão na Série A 2026? Olha esse simulador do Vitória 🦁🔴⚫ '+location.href;
+    window.open('https://api.whatsapp.com/send?text='+encodeURIComponent(t),'_blank');
+  };
+  document.getElementById('sh-copy').onclick=function(){
+    var b=this;
+    navigator.clipboard.writeText(location.href).then(function(){
+      b.textContent='Link copiado!';setTimeout(function(){b.textContent='Copiar link';},1800);
+    }).catch(function(){b.textContent='Copie da barra ↑';});
+  };
+
+  buildFixtures();
+  render();
+
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',function(){
+      navigator.serviceWorker.register('sw.js').catch(function(){});
+    });
+  }
+})();
+</script>
+</body>
+</html>
