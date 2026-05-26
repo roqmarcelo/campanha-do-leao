@@ -169,13 +169,13 @@
     <div class="updated" id="updated">Atualizado após a 17ª rodada · Vitória 2 × 0 Internacional</div>
 
     <div class="standing">
-      <div class="cell"><div class="lbl">Posição</div><div class="val red">11º</div></div>
-      <div class="cell"><div class="lbl">Pontos</div><div class="val">22</div></div>
-      <div class="cell"><div class="lbl">Jogos</div><div class="val">16</div></div>
-      <div class="cell"><div class="lbl">Aproveit.</div><div class="val">46%</div></div>
-      <div class="cell"><div class="lbl">Folga p/ Z-4</div><div class="val">+4</div></div>
+      <div class="cell"><div class="lbl">Posição</div><div class="val red" id="h-pos">11º</div></div>
+      <div class="cell"><div class="lbl">Pontos</div><div class="val" id="h-pts">22</div></div>
+      <div class="cell"><div class="lbl">Jogos</div><div class="val" id="h-jogos">16</div></div>
+      <div class="cell"><div class="lbl">Aproveit.</div><div class="val" id="h-aprov">46%</div></div>
+      <div class="cell"><div class="lbl">Folga p/ Z-4</div><div class="val" id="h-folga">+4</div></div>
     </div>
-    <p class="note" style="margin-top:14px;">Posição oficial após a 17ª rodada. Campanha: 6 vitórias, 4 empates, 6 derrotas.</p>
+    <p class="note" style="margin-top:14px;" id="h-campanha">Posição oficial após a 17ª rodada. Campanha: 6 vitórias, 4 empates, 6 derrotas.</p>
   </div>
 </header>
 
@@ -260,6 +260,8 @@
 <script>
 (function(){
   var BASE_PTS=22, BASE_GAMES=16, TOTAL=38;
+  var BASE_DEFAULT={pts:22,games:16};
+  var liveRodada=17;
   var KEY='leao-2026-resultados';
   var ppg=document.getElementById('ppg');
   var presets={'b-pess':0.95,'b-real':1.3,'b-otim':1.65};
@@ -301,7 +303,7 @@
   function updateHeader(){
     var g=lastMarked();
     var el=document.getElementById('updated');
-    if(!g){ el.textContent='Atualizado após a 17ª rodada · Vitória 2 × 0 Internacional'; return; }
+    if(!g){ el.textContent='Atualizado após a '+liveRodada+'ª rodada'; return; }
     var r=results[g.rd];
     var verbo=r==='V'?'venceu o':(r==='E'?'empatou com o':'perdeu para o');
     el.textContent='Atualizado após a '+g.rd+'ª rodada · Vitória '+verbo+' '+g.opp;
@@ -404,6 +406,30 @@
 
   buildFixtures();
   render();
+
+  fetch('data/standings.json?v='+Date.now()).then(function(r){
+    if(!r.ok) throw 0; return r.json();
+  }).then(function(s){
+    var v=s.vitoria;
+    BASE_PTS=v.pontos; BASE_GAMES=v.jogos;
+    if(s.rodadaAtual) liveRodada=s.rodadaAtual;
+    document.getElementById('h-pos').textContent=v.posicao+'º';
+    document.getElementById('h-pts').textContent=v.pontos;
+    document.getElementById('h-jogos').textContent=v.jogos;
+    document.getElementById('h-aprov').textContent=v.aproveitamento+'%';
+    document.getElementById('h-folga').textContent=(v.folgaZ4>=0?'+':'')+v.folgaZ4;
+    document.getElementById('h-campanha').textContent=
+      'Posição após a '+(s.rodadaAtual||'')+'ª rodada. Campanha: '+
+      v.vitorias+' vitórias, '+v.empates+' empates, '+v.derrotas+' derrotas.';
+    var changed=false;
+    if(s.rodadaAtual){
+      Object.keys(results).forEach(function(k){
+        if(parseInt(k,10)<=s.rodadaAtual){ delete results[k]; changed=true; }
+      });
+      if(changed){ save(); buildFixtures(); }
+    }
+    render();
+  }).catch(function(){});
 
   if('serviceWorker' in navigator){
     window.addEventListener('load',function(){

@@ -1,0 +1,22 @@
+{
+  "updatedAt": "2026-05-26T01:01:28.802Z",
+  "rodadaAtual": 17,
+  "vitoria": {
+    "posicao": 11,
+    "pontos": 22,
+    "jogos": 16,
+    "vitorias": 6,
+    "empates": 4,
+    "derrotas": 6,
+    "aproveitamento": 45,
+    "saldoGols": -2,
+    "folgaZ4": 4,
+    "ultimosJogos": [
+      "d",
+      "v",
+      "e",
+      "d",
+      "v"
+    ]
+  }
+}

@@ -1,4 +1,4 @@
-const CACHE = 'leao-2026-v1';
+const CACHE = 'leao-2026-v2';
 const ASSETS = [
   './',
   './index.html',
@@ -26,6 +26,20 @@ self.addEventListener('activate', (e) => {
 self.addEventListener('fetch', (e) => {
   const req = e.request;
   if (req.method !== 'GET') return;
+
+  // Network-first for the live standings JSON, with cache fallback when offline.
+  if (new URL(req.url).pathname.endsWith('/data/standings.json')) {
+    e.respondWith(
+      fetch(req)
+        .then((res) => {
+          const copy = res.clone();
+          caches.open(CACHE).then((c) => c.put(req, copy));
+          return res;
+        })
+        .catch(() => caches.match(req))
+    );
+    return;
+  }
 
   // Network-first for the page itself, so updated standings always win when online.
   if (req.mode === 'navigate') {
